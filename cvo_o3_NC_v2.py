@@ -1,4 +1,6 @@
+import os
 import numpy as np
+
 def cvo_o3_get_meta_v1(fn):
    import csv
    meta = []
@@ -56,7 +58,7 @@ def cvo_o3_create_NC_file_v1(meta, dout, DT):
    f4 = meta[1] #data product
    f5 = "v" + meta[20] #version number
    f6 = ".nc"
-   fn = dout + f1 + chr(95) + f2 + chr(95) + f3 + chr(95) + f4 + chr(95) + f5 + f6
+   fn = os.path.join( dout, f1 + chr(95) + f2 + chr(95) + f3 + chr(95) + f4 + chr(95) + f5 + f6)
 
    nc = Dataset(fn, "w",  format = "NETCDF4_CLASSIC") 
    
@@ -170,7 +172,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    doys[:] = data.DoY
    
    #year
-   years = nc.createVariable('year', np.int, ('time',))
+   years = nc.createVariable('year', 'f4', ('time',))
    #year variable attributes
    years.dimension = 'time'
    years.type = 'int'
@@ -182,7 +184,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    years[:] = data.DT[:,0]
    
    #month
-   months = nc.createVariable('month', np.int, ('time',))
+   months = nc.createVariable('month', 'f4', ('time',))
    #month variable attributes
    months.dimension = 'time'
    months.type = 'int'
@@ -194,7 +196,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    months[:] = data.DT[:,1]
    
    #day
-   days = nc.createVariable('day', np.int, ('time',))
+   days = nc.createVariable('day', 'f4', ('time',))
    #day variable attributes
    days.dimension = 'time'
    days.type = 'int'
@@ -206,7 +208,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    days[:] = data.DT[:,2]
    
    #hour
-   hours = nc.createVariable('hour', np.int, ('time',))
+   hours = nc.createVariable('hour', 'f4', ('time',))
    #hour variable attributes
    hours.dimension = 'time'
    hours.type = 'int'
@@ -218,7 +220,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    hours[:] = data.DT[:,3]
    
    #minute
-   minutes = nc.createVariable('minute', np.int, ('time',))
+   minutes = nc.createVariable('minute', 'f4', ('time',))
    #minute variable attributes
    minutes.dimension = 'time'
    minutes.type = 'int'
@@ -256,7 +258,7 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    O3[:] = data.O3
    
    #Qc flag
-   qc_flags = nc.createVariable('qc_flag', np.int, ('time',))
+   qc_flags = nc.createVariable('qc_flag', 'f4', ('time',))
    #qc_flag variable attribute
    qc_flags.dimension = 'time, altitude'
    qc_flags.type = 'int'
