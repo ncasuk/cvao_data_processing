@@ -1,3 +1,4 @@
+import numpy as np
 def cvo_o3_get_meta_v1(fn):
    import csv
    meta = []
@@ -117,7 +118,7 @@ def cvo_o3_NC_Dimensions_v1(nc, ET):
    latitude = nc.createDimension('latitude', 1)
    longitude = nc.createDimension('longitude', 1) 
    
-def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data, np):
+def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data):
    #time
    times = nc.createVariable('time', np.double, ('time',))
    #time variable attributes
@@ -266,11 +267,11 @@ def cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data, np):
    #write data
    qc_flags[:] = data.flag
    
-def NC_cvo_o3_v1(meta, dout, data, np):
+def NC_cvo_o3_v1(meta, dout, data):
    nc = cvo_o3_create_NC_file_v1(meta, dout, data.DT)
    
    cvo_o3_NC_Global_Attributes_v1(nc, meta, data.ET)
    cvo_o3_NC_Dimensions_v1(nc, data.ET)
-   cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data, np)
+   cvo_o3_NC_VaraiblesAndData_v1(nc, meta, data)
 
    nc.close()

@@ -2,9 +2,10 @@
 SJDFKSJDF
 KSDJFKLSd
 ]SDJFKKSDF'''
-def cvo_o3_get_file_v1(fn, np):
+def cvo_o3_get_file_v1(fn):
    import csv
    from time import mktime, strptime
+   import numpy as np
     
    DT = []
    ET = []
@@ -12,14 +13,14 @@ def cvo_o3_get_file_v1(fn, np):
    O3 = []
    flag = []
    
-   ifile = open(fn)
+   ifile = open(fn, 'rU') #U= universal newline mode
    reader = csv.reader(ifile, delimiter = chr(9)) #9 = tab, 44 = ,
    for row in reader:
       xx = str(row[0])
       ix = xx.find("Datetime")
       if ix < 0:
          xx = str(row[0])
-         tt = strptime(str(row[0]), '%d/%m/%Y %H:%M')
+         tt = strptime(str(row[0]), '%d/%m/%y %H:%M')
          #DoY
          DoY.append(float(tt[7]) + ((((float(tt[5])/60) + float(tt[4]))/60) + float(tt[3]))/24) 
          #ET
