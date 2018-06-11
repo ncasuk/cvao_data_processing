@@ -8,7 +8,7 @@ def cvo_o3_get_meta_v1(fn):
    str3 = "platform_location"
    str4 = "platform_height"
    
-   ifile = open(fn)
+   ifile = open(fn,'rU')
    reader = csv.reader(ifile, delimiter = chr(9))
 
    for row in reader:
